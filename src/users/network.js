@@ -22,7 +22,7 @@ router.post("/login", async (req, res)=> {
 
      await controller.login(email, password)
         .then((token)=> {
-            res.cookie('token',token , { maxAge: 900000, httpOnly: true, path:"/", sameSite: "none"});
+            res.cookie('token',token , { maxAge: 900000, httpOnly: true, path:"/"});
             res.json({auth: true, token,})
         })
         .catch(e => {
