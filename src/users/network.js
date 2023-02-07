@@ -11,9 +11,15 @@ router.post("/signin", async (req, res)=> {
 
     const {userName, email, password} = req.body
 
-    const token = await controller.signIn(userName, email, password)
-
-    res.json({auth: true, token,})
+    await controller.signIn(userName, email, password)
+    .then((token)=> {
+        res.cookie('token',token , { maxAge: 900000, httpOnly: true, path:"/"});
+        res.json({auth: true, token,})
+    })
+    .catch(e => {
+        res.json("Informacion Incorrecta"),
+        console.log(e);
+    })
 })
 
 router.post("/login", async (req, res)=> {

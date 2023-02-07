@@ -3,13 +3,17 @@ const store = require("./store")
 
 async function signIn(userName, email, password){
 
-    if (!userName || !email || !password) {
-        reject("Datos de registro incorrectos")
-    }
-
-    const token = await store.signIn(userName, email, password)
-
-    return token
+    return new Promise(async(resolve, reject)=> {
+        if (!userName || !email || !password) {
+            reject("Datos de registro incorrectos")
+        }
+    
+        await store.signIn(userName, email, password)
+            .then((token)=> resolve(token))
+            .catch((e)=> {
+                reject(e)
+            })
+    })
 }
 
 async function login(email, password) {
