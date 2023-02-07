@@ -11,7 +11,6 @@ dbConnect(`mongodb+srv://${process.env.USERDB}:${process.env.PASSWORDDB}@cluster
 
 const app = express();
 //
-app.set("port", process.env.PORT || 3001);
 app.set("json spaces", 2);
 
 app.use(morgan("dev"));
@@ -26,6 +25,6 @@ app.use("/",((req, res)=> {
 // routes
 router(app);
 
-app.listen(app.get("port"), ()=> {
+app.listen(process.env.PORT || 3001, ()=> {
     (`Server en http://localhost:${process.env.PORT || 3001}`);
 });
