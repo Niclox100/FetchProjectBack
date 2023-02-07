@@ -2,20 +2,32 @@ const User = require("./model")
 const { generateToken } = require("../helpers/generateToken")
 
 async function signIn(userName, email, password){
-    const user = new User({
-        userName: userName,
-        email: email,
-        password: password,
-    })
-
-    user.password = await user.encryptPassword(user.password)
-    console.log(["UUUSER", user]);
+    return new Promise((resolve, reject)=> {
+        if (!userName || !email || !password) {
+            reject("Datos Incorrectos")
+        }
+        User.findOne({email: email}).exec()
+        .then(async (existingUser) => {
+            if(existingUser){
+                return reject("Email en Uso");
+            }
     
-    const token = generateToken(user._id)
-
-    user.save()
-
-    return token
+        const user = new User({
+            userName: userName,
+            email: email,
+            password: password,
+        })
+    
+        user.password = await user.encryptPassword(user.password)
+        console.log(["UUUSER", user]);
+        
+        const token = generateToken(user._id)
+    
+        user.save()
+    
+        return resolve(token)
+        })
+    })
 }
 
 
