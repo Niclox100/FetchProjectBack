@@ -7,7 +7,9 @@ const cookieParser = require("cookie-parser")
 const dbConnect = require("./src/db")
 const router = require("./src/network/routes")
 
-dbConnect(`mongodb+srv://${process.env.USERDB}:${process.env.PASSWORDDB}@cluster0.pbro4wt.mongodb.net/db_conexaChallenge?retryWrites=true&w=majority`)
+console.log(process.env.DB_NAME);
+
+dbConnect(`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD}@cluster0.pbro4wt.mongodb.net/db_conexaChallenge?retryWrites=true&w=majority`)
 
 const app = express();
 //
