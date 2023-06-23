@@ -18,7 +18,9 @@ app.set("json spaces", 2);
 app.use(morgan("dev"));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["https://fetchprojectback-ncolombo.vercel.app", "http://localhost:3000"],
+}));
 app.use(cookieParser());
 
 // routes
