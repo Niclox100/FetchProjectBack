@@ -24,6 +24,9 @@ app.use(cookieParser());
 
 // routes
 router(app);
+app.use("./", (req, res) => {
+    res.send("Conectado")
+})
 
 app.listen(process.env.PORT || 3001, ()=> {
     (`Server en http://localhost:${process.env.PORT || 3001}`);
